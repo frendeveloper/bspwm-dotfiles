@@ -1,7 +1,7 @@
 
 [module/launcher]
 type=custom/text
-content = 
+content = 
 content-font = 2
 content-foreground= ${color.blue}
 content-padding = 2
@@ -34,15 +34,6 @@ format-unmounted = <label-unmounted>
 format-unmounted-prefix = " "
 label-mounted = "%free%"
 label-unmounted = " %mountpoint%: NA"
-
-[module/installed-pkgs]
-type = custom/script
-exec = pacman -Q | wc -l
-interval = 10
-format = <label>
-label = %output%
-format-prefix = " "
-format-padding = 1
 
 [module/my-text-label]
 type = custom/text
@@ -129,6 +120,28 @@ ramp-volume-2 = 墳
 ramp-headphones-0 = 
 ramp-headphones-1 = 
 
+[module/xkeyboard]
+type = internal/xkeyboard
+
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+
+layout-icon-0 = us;
+layout-icon-1 = rs;
+
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-prefix-underline = ${colors.secondary}
+
+label-layout = %layout%
+label-layout-underline = ${colors.secondary}
+
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-background = ${colors.secondary}
+label-indicator-underline = ${colors.secondary}
+
+
 [module/brightness]
 type = internal/backlight
 card = ${system.graphics_card}
@@ -148,7 +161,7 @@ format-padding = 1
 
 [module/time]
 type = internal/date
-time = "%A, %d/%m/%y, %I:%M %p"
+time = %H:%M
 format = <label>
 format-prefix = " "
 label = %time%
@@ -161,3 +174,4 @@ content-font = 2
 content-padding = 1
 content-foreground = ${color.red}
 click-left = $HOME/.local/bin/powermenu
+

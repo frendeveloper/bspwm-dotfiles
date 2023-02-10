@@ -1,15 +1,32 @@
-# reloads sxhkd configuration:
-super + Escape
-    pkill -USR1 -x sxhkd
+
+# Reload sxhkdrc
+super + shift + r
+    pkill -usr1 -x sxhkd; notify-send 'sxhkd' 'Reloaded config'
+
+# Change keyboard language
+alt + space
+  ~/.config/sxhkd/kblayout.sh
+
+# Launch Viber
+alt + v
+  /opt/viber/Viber
+
+#Launch Telegram
+alt + t
+  telegram-desktop
 
 # Launch Terminal
 super + Return
-    alacritty
-    
+    kitty
+
 #App Launcher
 alt + F1
     rofi -show drun
-	
+
+#Launch Browser
+alt + F2
+    brave-browser
+
 # Launch Menus
 super + {d,w,x}
     {rofi -show run,rofi -show window,$HOME/.local/bin/powermenu}
@@ -19,8 +36,8 @@ ctrl + alt + l
     betterlockscreen --lock blur
 
 # Launch Applications
-super + shift + {f,w,r,g,c,d,s,v}
-    {thunar,brave,alacritty -e ranger,geany,code,discord,spotify,virtualbox}
+super + shift + {f,w,g,c,d,s,v}
+    {thunar,brave-browser,alacritty -e ranger,geany,code,discord,spotify,}
 
 # Volume controls
 XF86Audio{RaiseVolume,LowerVolume,Mute}

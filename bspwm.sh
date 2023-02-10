@@ -1,9 +1,27 @@
 #!/bin/bash
-sudo pacman -Syu --needed git base-devel
+# Check if Script is Run as Root
+if [[ $EUID -ne 0 ]]; then
+  echo "You must be a root user to run this script, please run sudo ./install.sh" 2>&1
+  exit 1
+fi
+
+username=$(id -u -n 1000)
+builddir=$(pwd)
+
+# Update packages list and update system
+apt update
+apt upgrade -y
+
+# Install nala
+apt install nala -y
+
+sudo apt install git build-essential manpages-dev
 git clone https://aur.archlinux.org/paru-bin.git
 cd paru-bin && makepkg -si
-paru -S alacritty bspwm sxhkd feh polybar xorg-xsetroot xorg-xbacklight light pamixer picom-jonaburg-git dunst rofi flameshot ksuperkey nerd-fonts-jetbrains-mono polkit-gnome fm6000 network-manager-applet helix xfce4-power-manager betterlockscreen zsh zsh-autosuggestions zsh-syntax-highlighting oh-my-zsh-git catppuccin-gtk-theme papirus-icon-theme --needed --noconfirm
-git clone https://github.com/theCode-Breaker/bspwm-dotfiles.git --depth 1
+sudo apt install wget curl git kitty telegram-desktop bspwm sxhkd feh polybar x11-xserver-utils xbacklight light pamix picom dunst rofi flameshot network-manager network-manager-gnome xfce4-power-manager xfce4-settings zsh zsh-autosuggestions zsh-syntax-highlighting papirus-icon-theme libqt5svg5 qml-module-qtquick-controls qml-module-qtquick-controls2 feh bspwm sxhkd kitty rofi polybar picom thunar nitrogen lxpolkit unzip yad wget pulseaudio pavucontrol -y
+sudo systemctl enable NetworkManager.service
+sudo snap install ksuperkey
+git clone https://github.com/frendeveloper/bspwm-dotfiles --depth 1
 cd bspwm-dotfiles
 cp -R .config/* ~/.config/
 chmod -R +x ~/.config/bspwm

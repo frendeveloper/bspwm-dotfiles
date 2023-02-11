@@ -2,7 +2,7 @@
 username=$(id -u -n 1000)
 
 changeinterface() {
-config="/home/$username/.config/polybar/config.ini" # Define polybar config file
+config="/home/$username/.config/bspwm/polybar/config" # Define polybar config file
 eth() {
 if=$(ip -br l | awk '$1 !~ "lo|vir|wl|tun" { print $1}') # Find user's eth interface
 if [ -z "$if" ];then # is interface empty?

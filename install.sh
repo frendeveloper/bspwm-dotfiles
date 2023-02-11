@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Check if Script is Run as Root
 if [[ $EUID -ne 0 ]]; then
   echo "You must be a root user to run this script, please run sudo ./install.sh" 2>&1
@@ -34,11 +35,10 @@ nala install feh bspwm sxhkd kitty rofi polybar picom thunar nitrogen lxpolkit x
 # Installing Other less important Programs
 nala install neofetch flameshot psmisc mangohud vim lxappearance papirus-icon-theme fonts-noto-color-emoji sddm variety jq dunst -y
 
+# Download Nordic Theme
+cd /usr/share/themes/ || exit
+git clone https://github.com/EliverLara/Nordic.git
 
-sudo apt install git build-essential manpages-dev
-sudo apt install curl git kitty telegram-desktop bspwm sxhkd feh polybar xbacklight light pamix picom dunst rofi flameshot network-manager network-manager-gnome xfce4-power-manager xfce4-settings zsh zsh-autosuggestions zsh-syntax-highlighting -y
-sudo systemctl enable NetworkManager.service
-sudo snap install ksuperkey
 # Installing fonts
 cd "$builddir" || exit
 nala install fonts-font-awesome -y
@@ -74,15 +74,5 @@ cp -f "$builddir/sddm.conf" /etc/
 systemctl enable sddm
 systemctl set-default graphical.target
 
-
-git clone https://github.com/frendeveloper/bspwm-dotfiles --depth 1
-cd bspwm-dotfiles
-cp -R .config/* ~/.config/
-chmod -R +x ~/.config/bspwm
-cp .zshrc ~
-cp .zshrc-personal ~
-mkdir ~/.local/bin
-cp -R .local/bin/* ~/.local/bin
-chmod -R +x ~/.local/bin
-betterlockscreen -u ~/.config/bspwm/backgrounds/evening-sky.png
-sudo systemctl enable betterlockscreen@$USER.service
+# Polybar configuration
+bash scripts/changeinterface
